@@ -164,7 +164,7 @@
      #启动项目后浏览器访问本地ip接口
      ```
 
-     ![image-20200324095731038](/Users/mac/Library/Application Support/typora-user-images/image-20200324095731038.png)
-
      
+
+     ![image-20200324095731038](/Users/mac/my_code/devops/image/image-20200324095731038.png)
 
