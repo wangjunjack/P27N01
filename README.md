@@ -166,5 +166,5 @@
 
      
 
-     ![image-20200324095731038](../image/image-20200324095731038.png)
+     ![image-20200324095731038](https://github.com/MagePY27/P27N01/blob/master/image/image-20200324095731038.png)
 
