@@ -56,6 +56,8 @@
 1. #### 数据库配置修改
 
    ```shell
+   #修改访问权限，全部地址可以访问
+   ALLOWED_HOSTS = ["*"] 
    #编辑settings.py 修改数据库信息
    DATABASES = {
        'default': {
@@ -140,13 +142,14 @@
      from . import views
      
      urlpatterns = {
-         path('hello/', views.index, name='index'),
+        # path('hello/', views.index, name='index'),#访问模式ip/hello/hello多子路由
+       	path('', views.index, name='index') #访问模式ip/hello 子路由直接访问
      }
      
-     ```
-
-   - 创建视图views 方法
-
+  ```
+   
+- 创建视图views 方法
+   
      ```python
      vim $projet/devops/hello/views.py
      
@@ -155,16 +158,16 @@
      
      def index(request):
          return HttpResponse("<p>Hello World Django!!!</p>")#访问hello接口返回字符串
-     ```
-
-   - 启动项目并测试访问结果
-
+  ```
+   
+- 启动项目并测试访问结果
+   
      ```shell
      cd $projet/ && python manage.py runserver 0.0.0.0:8080
      #启动项目后浏览器访问本地ip接口
-     ```
-
-     
-
+  ```
+   
+  
+   
      ![image-20200324095731038](https://github.com/MagePY27/P27N01/blob/master/image/image-20200324095731038.png)
 
