@@ -166,5 +166,5 @@
 
      
 
-     ![image-20200324095731038](/Users/mac/my_code/devops/image/image-20200324095731038.png)
+     ![image-20200324095731038](../image/image-20200324095731038.png)
 
