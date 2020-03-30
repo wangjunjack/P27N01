@@ -1,5 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, QueryDict, request
 
-def index(request):
-    return HttpResponse("<p>Hello World Django!!!</p>")
+from .models import User
+
+
+def userlist(request):
+
+    return render(request, 'userlist.html', {'users': users})
