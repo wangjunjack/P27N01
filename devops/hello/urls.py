@@ -8,4 +8,6 @@ urlpatterns = {
     path('', views.index3, name='index3'),
     # re_path('(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/', views.index2, name= 'index2'),
     path('list/', views.userlist, name= 'userlist'),
+    re_path('update/(?P<userid>[0-9])',views.updatelist, name='update'),
+    path('list/delete/',views.deletelist, name='update'),
 }

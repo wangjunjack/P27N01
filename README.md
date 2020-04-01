@@ -442,16 +442,16 @@ Out[2]: <QuerySet [<User: kk>]>
   #查出全部结果，以列表嵌套字典的形式展现
 In [3]: User.objects.filter(id=1).values()                                                                                                                 
   Out[3]: <QuerySet [{'id': 1, 'name': 'kk', 'password': '123456', 'sex': None}]>
-#查出指定列的内容
+  #查出指定列的内容
   In [4]: User.objects.filter(id = 1).values('id','name')                                                                                                                  
 Out[4]: <QuerySet [{'id': 1, 'name': 'kk'}]>
   #排序查找，根据表字段排序
   In [5]: User.objects.all().order_by('id')                                                                                                                                
   Out[5]: <QuerySet [<User: kk>, <User: cjk>, <User: kk1>, <User: kk2>, <User: kk3>]>
-  
+
   In [6]: User.objects.all().order_by('name')                                                                                                                              
   Out[6]: <QuerySet [<User: cjk>, <User: kk>, <User: kk1>, <User: kk2>, <User: kk3>]>
-  
+
   #raw执行原生sql语句
   In [11]: from hello.models import User                                                                                                                                   
   In [12]: res = User.objects.raw('select * from hello_user')                                                                                                              
@@ -459,13 +459,33 @@ Out[4]: <QuerySet [{'id': 1, 'name': 'kk'}]>
       ...:     print(i.name) 
       ...:                      
   ```
-  
-  
+
 
 ## 第五章 模板初识
 
 ### 模板一体化
 
+- 初始化模板配置
+
+  ```python
+  #cat devops/settings.py TEMPLATES = [
+  TEMPLATES = [
+      {
+          'BACKEND': 'django.template.backends.django.DjangoTemplates',
+          'DIRS': [BASE_DIR+"/templates"],
+          'APP_DIRS': True,
+          'OPTIONS': {
+              'context_processors': [
+                  'django.template.context_processors.debug',
+                  'django.template.context_processors.request',
+                  'django.contrib.auth.context_processors.auth',
+                  'django.contrib.messages.context_processors.messages',
+              ],
+          },
+      },
+  ]
+  ```
+  
 - 常用写法
 
   ```html
@@ -647,10 +667,8 @@ Out[4]: <QuerySet [{'id': 1, 'name': 'kk'}]>
 
 - 访问新的url来，使用自定义标签过滤器
 
-  ```shell
   
-  ```
-
+  
   
 
   

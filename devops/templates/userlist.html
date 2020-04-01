@@ -1,6 +1,5 @@
 <!-- 继承⺟母版不不变的部分 -->
 {% extends "base.html" %}
-
 <!-- 重写⺟母版变的部分-->
 {% block title %} ⽤户的列表 {% endblock %}
 
@@ -8,20 +7,32 @@
 {% block content %}
 <table border="1">
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>姓名</th>
-            <th>密码</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>密码</th>
+        <th colspan="2">用户操作</th>
+    </tr>
+
     </thead>
+
     <tbody>
+
     {% for user in users %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.password }}</td>
-        </tr>
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.passwd }}</td>
+        <td>
+            <a href="/hello/update/{{ user.id }}">更新</a>
+        </td>
+        <td>
+            <a href="delete">删除</a>
+        </td>
+    </tr>
     {% endfor %}
-</tbody>
+    <p></p>
+    </tbody>
+
 </table>
 {% endblock %}
