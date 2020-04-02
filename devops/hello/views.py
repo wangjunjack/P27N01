@@ -1,53 +1,70 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.shortcuts import render
-
+from django.core.paginator import Paginator
 from hello.models import User
 
 
 def userlist(request):
+    """
+    页面展示首页 index.html页
+    :param request:
+    :return:
+    """
     users = User.objects.all()
     print(users)
     return render(request, 'userlist.html', {'users': users})
 
-
-def updatelist(request,**kwargs):
-    userid = kwargs.get('userid')
-    username = User.objects.get(id = userid).username
-    passwd = User.objects.get(id = userid).passwd
-    return render(request, 'update.html',{'username':username,'id':userid,'passwd':passwd})
-
-
-def deletelist(request):
-    return render(request, 'delete.html')
-
-
-def index(request):
-    return render(request, 'hello.html', )
-
-
-def index1(request):
-    # 设置默认值的⽅式获取数据更更优雅
-    year = request.GET.get("year", "2020")
-    # 直接获取数据，没有传会报错，不建议
-    month = request.GET.get("month", "03")
-    return HttpResponse("year is {},month is %{}".format(year, month))
+def createdata(request,**kwargs):
+    """
+    GET 返回创建页面
+    POST 创建新用户
+    :param request:
+    :return:
+    """
+    print(request.method)
+    if request.method == "GET":
+        return render(request,'create.html')
+    else:
+        u = User()
+        u.username = request.POST['username']
+        u.passwd = request.POST['passwd']
+        u.sex = request.POST['sex']
+        try:
+            u.save()
+            return HttpResponse("执行结果成功")
+        except:
+            print("21123123")
 
 
-def index2(request, year, month):
-    return HttpResponse("year is %s,month is %s" % (year, month))
 
+def modifydata(request,**kwargs):
+    """
+    更新表单数据
+    :param request:
+    :return: 更新成功提交
+    """
 
-def index3(request):
-    print(request.scheme)  # 获取访问协议
-    print(request.method)  # 获取访问方式 GET or POST
-    print(request.path)  # 获取访问路径url
-    data = request.GET
-    year = data.get('year', "2019")
-    month = data.get('month', "03")
-    if request.method == "POST":
-        year = data.get('year', "2020")
-        month = data.get("month", "03")
-    return HttpResponse("year is %s,month is %s" % (year, month))
-#
-# def index2(request, year=2020, month=3):
-#     return HttpResponse("year is %s,month is %s" % (year,month))
+    if request.method == "GET":
+        print(request)
+        print(kwargs)
+        id = kwargs.get("id")
+        u = User.objects.get(id = id)
+        username = u.username
+        passwd = u.passwd
+        sex = u.get_sex_display
+        return render(request,"update.html",{"id":id,"username":username,"passwd":passwd,"sex":sex})
+    username = request.POST['username']
+    passwd = request.POST['passwd']
+    sex = request.POST['sex']
+    code = User.objects.filter(id = request.POST['id']).update(username = username, passwd = passwd, sex = sex)
+    return HttpResponse("执行结果 {}".format(code))
+
+def deletelist(request, **kwargs):
+    """
+    删除数据
+    :param request: 数据体
+    :param kwargs:  数据
+    :return:
+    """
+    u = User.objects.filter(id = kwargs.get('userid')).delete()
+    return HttpResponse('记录 id 为 {}, 已经删除成功'.format(u))

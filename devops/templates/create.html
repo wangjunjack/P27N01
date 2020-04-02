@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
-{% block title %} 更新表单 {% endblock %}
+{% block title %} 添加用户 {% endblock %}
 {% block content %}
 <table border="1">
     <thead>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     <tr>
-        <form action="update" , method="POST">
+        <form action="create" , method="POST">
             <td><input type="text" readonly="readonly" name="id" value="{{ id }}"></td>
             <td>
                 <input type="text" name="username" value="{{ username }}">
