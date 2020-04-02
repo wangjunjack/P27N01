@@ -2,7 +2,9 @@ from django.http import HttpResponse, request
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from hello.models import User
-
+import logging
+ForMat = "%(asctime)s %(message)s"
+logging.basicConfig(format=ForMat, level=logging.INFO)
 
 def userlist(request):
     """
@@ -11,7 +13,7 @@ def userlist(request):
     :return:
     """
     users = User.objects.all()
-    print(users)
+    logging.info(users)
     return render(request, 'userlist.html', {'users': users})
 
 def createdata(request,**kwargs):
@@ -32,9 +34,8 @@ def createdata(request,**kwargs):
         try:
             u.save()
             return HttpResponse("执行结果成功")
-        except:
-            print("21123123")
-
+        except Exception as e:
+            logging.info('创建失败',e)
 
 
 def modifydata(request,**kwargs):
