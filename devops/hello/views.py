@@ -33,7 +33,8 @@ def createdata(request,**kwargs):
         u.sex = request.POST['sex']
         try:
             u.save()
-            return HttpResponse("执行结果成功")
+
+            return HttpResponse('创建成功')
         except Exception as e:
             logging.info('创建失败',e)
 
@@ -46,10 +47,12 @@ def modifydata(request,**kwargs):
     """
 
     if request.method == "GET":
-        print(request)
-        print(kwargs)
         id = kwargs.get("id")
-        u = User.objects.get(id = id)
+        print(id)
+        try:
+            u = User.objects.get(id = id)
+        except User.DoesNotExist as e:
+            print(e)
         username = u.username
         passwd = u.passwd
         sex = u.get_sex_display
@@ -67,5 +70,7 @@ def deletelist(request, **kwargs):
     :param kwargs:  数据
     :return:
     """
-    u = User.objects.filter(id = kwargs.get('userid')).delete()
-    return HttpResponse('记录 id 为 {}, 已经删除成功'.format(u))
+    print(kwargs)
+    id = kwargs.get('id')
+    u = User.objects.filter(id = kwargs.get('id')).delete()
+    return HttpResponse('记录 id 为 {}, 已经删除成功'.format(id))
